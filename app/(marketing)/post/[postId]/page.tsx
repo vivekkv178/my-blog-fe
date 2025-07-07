@@ -5,6 +5,7 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import Link from "next/link";
 import { Calendar, ChevronLeft, Share2, Tag, Timer } from "lucide-react";
+import { Metadata } from "next";
 
 const CONTENT_BASE_URL =
   "https://raw.githubusercontent.com/vivekkv178/my-blog-content/main/";
@@ -126,4 +127,20 @@ export default async function Home({ params }: Props) {
       </main>
     </div>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  return {
+    title: params.slug
+      .replace(/^.*--f--/, "")
+      .replace(/\.md$/, "")
+      .replace(/-/g, " "),
+    openGraph: {
+      images: [`/post/${params.slug}/opengraph-image`], // hits opengraph-image.tsx
+    },
+  };
 }
