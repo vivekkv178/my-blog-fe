@@ -137,7 +137,7 @@ export const metadata: Metadata = {
     `${process.env.NEXT_PUBLIC_CDN_PATH}/blog/react-state-management-upskilling-with-ai.png`,
   ),
   openGraph: {
-    title: "Vivek's Blog",
+    title: "Designing State Management in React: A Practical Guide",
     description:
       "A hands-on guide to building scalable, maintainable state architecture in React using Context, Custom Hooks, and Redux Toolkit.",
     url: "https://my-blog-vivekkv.vercel.app/",
