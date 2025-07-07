@@ -79,7 +79,7 @@ export default async function Home({ params }: Props) {
             <div className="tw-flex tw-items-center tw-space-x-4 tw-text-sm tw-text-gray-600 tw-dark:tw-text-gray-400">
               <span className="tw-flex tw-items-center">
                 <Calendar className="w-4 h-4 mr-2" />
-                March 19, 2024
+                July 7th, 2025
               </span>
               {/* <span className="tw-flex tw-items-center">
                 <Timer className="w-4 h-4 mr-2" />5 min read
