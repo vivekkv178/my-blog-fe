@@ -132,15 +132,15 @@ export default async function Home({ params }: Props) {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: { postId: string };
 }): Promise<Metadata> {
   return {
-    title: params.slug
+    title: params.postId
       .replace(/^.*--f--/, "")
       .replace(/\.md$/, "")
       .replace(/-/g, " "),
     openGraph: {
-      images: [`/post/${params.slug}/opengraph-image`], // hits opengraph-image.tsx
+      images: [`/post/${params.postId}/opengraph-image`], // hits opengraph-image.tsx
     },
   };
 }
