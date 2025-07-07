@@ -129,18 +129,32 @@ export default async function Home({ params }: Props) {
   );
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { postId: string };
-}): Promise<Metadata> {
-  return {
-    title: params.postId
-      .replace(/^.*--f--/, "")
-      .replace(/\.md$/, "")
-      .replace(/-/g, " "),
-    openGraph: {
-      images: [`/post/${params.postId}/opengraph-image`], // hits opengraph-image.tsx
-    },
-  };
-}
+export const metadata: Metadata = {
+  title: "Designing State Management in React: A Practical Guide",
+  description:
+    "A hands-on guide to building scalable, maintainable state architecture in React using Context, Custom Hooks, and Redux Toolkit.",
+  metadataBase: new URL(
+    `${process.env.NEXT_PUBLIC_CDN_PATH}/blog/react-state-management-upskilling-with-ai.png`,
+  ),
+  openGraph: {
+    title: "Vivek's Blog",
+    description:
+      "A hands-on guide to building scalable, maintainable state architecture in React using Context, Custom Hooks, and Redux Toolkit.",
+    url: "https://my-blog-vivekkv.vercel.app/",
+    siteName: "Vivek's Blog",
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_CDN_PATH}/blog/react-state-management-upskilling-with-ai.png`, // Must be an absolute URL
+        width: 800,
+        height: 1000,
+      },
+      {
+        url: `${process.env.NEXT_PUBLIC_CDN_PATH}/blog/react-state-management-upskilling-with-ai.png`, // Must be an absolute URL
+        width: 1800,
+        height: 2000,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+};
