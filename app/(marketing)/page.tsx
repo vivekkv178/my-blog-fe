@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const mockPosts = [
   {
-    image: `${process.env.NEXT_PUBLIC_CDN_PATH}/blog/react-state-management.png`,
+    image: `${process.env.NEXT_PUBLIC_CDN_PATH}/blog/react-state-management-upskilling-with-ai.png`,
     link: "/post/react--f--react-state-management-upskilling-with-ai.md",
     content_link:"https://raw.githubusercontent.com/vivekkv178/my-blog-content/main/react/react-state-management-upskilling-with-ai.md",
     github:
