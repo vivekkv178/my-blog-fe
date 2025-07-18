@@ -4,20 +4,20 @@ import rehypePrism from "rehype-prism-plus";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import Link from "next/link";
-import { Calendar, ChevronLeft, Share2, Tag, Timer } from "lucide-react";
-import { Metadata } from "next";
+import { Calendar, ChevronLeft, Share2, Tag } from "lucide-react";
+import { Metadata, ResolvingMetadata } from "next";
+import { getPost } from "./data";
 
-const CONTENT_BASE_URL =
-  "https://raw.githubusercontent.com/vivekkv178/my-blog-content/main/";
+type MetadataProps = {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
-interface Props {
-  params: { postId: string };
-}
+export default async function Home({ searchParams }: MetadataProps) {
+  const id = (await searchParams)?.id as string;
+  const post = await getPost(id);
 
-export default async function Home({ params }: Props) {
-  const response = await fetch(
-    `${CONTENT_BASE_URL}${params.postId}`.replaceAll("--f--", "/"),
-  );
+  const response = await fetch(post?.content_link);
   const source = await response.text();
 
   if (!source) {
@@ -129,32 +129,40 @@ export default async function Home({ params }: Props) {
   );
 }
 
-export const metadata: Metadata = {
-  title: "Designing State Management in React: A Practical Guide",
-  description:
-    "A hands-on guide to building scalable, maintainable state architecture in React using Context, Custom Hooks, and Redux Toolkit.",
-  metadataBase: new URL(
-    `${process.env.NEXT_PUBLIC_CDN_PATH}/blog/react-state-management-upskilling-with-ai.png`,
-  ),
-  openGraph: {
-    title: "Designing State Management in React: A Practical Guide",
-    description:
-      "A hands-on guide to building scalable, maintainable state architecture in React using Context, Custom Hooks, and Redux Toolkit.",
-    url: "https://my-blog-vivekkv.vercel.app/",
-    siteName: "Vivek's Blog",
-    images: [
-      {
-        url: `${process.env.NEXT_PUBLIC_CDN_PATH}/blog/react-state-management-upskilling-with-ai.png`, // Must be an absolute URL
-        width: 800,
-        height: 1000,
-      },
-      {
-        url: `${process.env.NEXT_PUBLIC_CDN_PATH}/blog/react-state-management-upskilling-with-ai.png`, // Must be an absolute URL
-        width: 1800,
-        height: 2000,
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-};
+export async function generateMetadata(
+  { params, searchParams }: MetadataProps,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const id = (await searchParams).id as string;
+
+  // fetch post information
+  const post = await getPost(id);
+
+  return {
+    title: post?.title,
+    description: post?.description,
+    metadataBase: new URL(
+      `${process.env.NEXT_PUBLIC_CDN_PATH}${post?.image_path}`,
+    ),
+    openGraph: {
+      title: post?.title,
+      description: post?.description,
+      url: "https://my-blog-vivekkv.vercel.app/",
+      siteName: "Vivek's Blog",
+      images: [
+        {
+          url: `${process.env.NEXT_PUBLIC_CDN_PATH}${post?.image_path}`, // Must be an absolute URL
+          width: 800,
+          height: 1000,
+        },
+        {
+          url: `${process.env.NEXT_PUBLIC_CDN_PATH}${post?.image_path}`, // Must be an absolute URL
+          width: 1800,
+          height: 2000,
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+  };
+}

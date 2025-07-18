@@ -39,3 +39,7 @@ export enum HttpMethod {
   OPTIONS = "OPTIONS",
   HEAD = "HEAD",
 }
+
+export const FIREBASE_CONSTANTS = {
+  BLOGS_COLLECTION_NAME: "blogs",
+};
