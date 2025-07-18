@@ -1,4 +1,3 @@
-/* eslint-disable @eslint/no-explicit-any */
 import { initializeApp, cert, getApps } from "firebase-admin/app";
 
 import { getFirestore } from "firebase-admin/firestore";
