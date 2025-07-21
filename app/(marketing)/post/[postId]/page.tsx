@@ -16,6 +16,7 @@ type MetadataProps = {
 export default async function Home({ searchParams }: MetadataProps) {
   const id = (await searchParams)?.id as string;
   const post = await getPost(id);
+  post.created_at = new Date(`${post?.created_at}`).toUTCString();
 
   const response = await fetch(post?.content_link);
   const source = await response.text();
@@ -79,7 +80,7 @@ export default async function Home({ searchParams }: MetadataProps) {
             <div className="tw-flex tw-items-center tw-space-x-4 tw-text-sm tw-text-gray-600 tw-dark:tw-text-gray-400">
               <span className="tw-flex tw-items-center">
                 <Calendar className="w-4 h-4 mr-2" />
-                July 7th, 2025
+                {post?.created_at}
               </span>
               {/* <span className="tw-flex tw-items-center">
                 <Timer className="w-4 h-4 mr-2" />5 min read
